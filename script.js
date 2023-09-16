@@ -15,16 +15,37 @@ if(4==t.readyState&&200==t.status){
 },t.open("POST","https://api.voicerss.org/",!0),t.setRequestHeader
 ("Content-Type","application/x-www-form-urlencoded; charset=UTF-8"),t.send(a)},_buildRequest:function(e){var a=e.c&&"auto"!=e.c.toLowerCase()?e.c:this._detectCodec();return"key="+(e.key||"")+"&src="+(e.src||"")+"&hl="+(e.hl||"")+"&r="+(e.r||"")+"&c="+(a||"")+"&f="+(e.f||"")+"&ssml="+(e.ssml||"")+"&b64=true"},_detectCodec:function(){var e=new Audio;return e.canPlayType("audio/mpeg").replace("no","")?"mp3":e.canPlayType("audio/wav").replace("no","")?"wav":e.canPlayType("audio/aac").replace("no","")?"aac":e.canPlayType("audio/ogg").replace("no","")?"ogg":e.canPlayType("audio/x-caf").replace("no","")?"caf":""},_getXHR:function(){try{return new XMLHttpRequest}catch(e){}try{return new ActiveXObject("Msxml3.XMLHTTP")}catch(e){}try{return new ActiveXObject("Msxml2.XMLHTTP.6.0")}catch(e){}try{return new ActiveXObject("Msxml2.XMLHTTP.3.0")}catch(e){}try{return new ActiveXObject("Msxml2.XMLHTTP")}catch(e){}try{return new ActiveXObject("Microsoft.XMLHTTP")}catch(e){}throw"The browser does not support HTTP request"}};
 
-function test() {
-    VoiceRSS.speech({
-        key: '2555ca1148ad43448cc598bcea6b1d3b',
-        src: 'Hello, world!',
-        hl: 'en-us',
-        v: 'Linda',
-        r: 0, 
-        c: 'mp3',
-        f: '44khz_16bit_stereo',
-        ssml: false
-    });
+// function test() {
+//     VoiceRSS.speech({
+//         key: '2555ca1148ad43448cc598bcea6b1d3b',
+//         src: 'Hello, world!',
+//         hl: 'en-us',
+//         v: 'Linda',
+//         r: 0, 
+//         c: 'mp3',
+//         f: '44khz_16bit_stereo',
+//         ssml: false
+//     });
+// }
+// test();
+
+// Get Jokes from Joke API
+async function getJokes() {
+    let joke = '';
+    const apiUrl = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=religious,racist,sexist';
+    try {
+       const response = await fetch(apiUrl);
+       const data = await response.json();
+     if (data.setup)  {
+        joke = `${data.setup} ... ${data.delivery}`;
+     } else {
+       joke = data.joke;
+     }
+     console.log(joke);
+    } catch (error) {
+      // Catch Errors Here
+      console.log('whoops', error);
+    }
 }
-test();
+
+getJokes();
